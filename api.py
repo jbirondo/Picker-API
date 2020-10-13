@@ -50,7 +50,7 @@ def get_main_data():
         wind = unicodedata.normalize("NFKC", weathertable[2:][-4]).split()
         wind_direction = " ".join(wind[:-1]) if wind else "DOME"
         wind_speed = "{} mph".format(wind[-1].replace(".", "")) if wind else "DOME"
-        summary = weathertable[2] if weathertable[2] != "\xa0" else "NO SUMMARY"
+        summary = unicodedata.normalize("NFKC", weathertable[2]) if weathertable[2] != "\xa0" else "NO SUMMARY"
         weatherd[teams[1]] = {
             "Summary": summary,
             "Wind Direction": wind_direction,
