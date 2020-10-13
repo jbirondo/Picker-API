@@ -90,10 +90,9 @@ def get_main_data():
         d["Home"] = teams[1]
         d["Date/Time"] = a.find("span", {"class": "cellTextHot"}).text
         d["Temperature"] = weatherd[teams[1]]["Temperature"]
-        # d["Precipitation"] = weatherd[teams[1]]["Precipitation"]
         d["Wind Direction"] = weatherd[teams[1]]["Wind Direction"]
         d["Wind Speed"] = weatherd[teams[1]]["Wind Speed"]
-        d["Summary"] = weatherd[teams[1]]["Summary"]
+        d["Weather Summary"] = weatherd[teams[1]]["Summary"]
         l.append(d)
     sortedArray = sorted(
         l,
