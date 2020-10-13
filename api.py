@@ -122,8 +122,9 @@ def get_injury_data():
                 "span", {"class": "CellPlayerName--long"}).text.replace("\n", "")
             p["Position"] = arr[0]
             p["Date of Injury"] = " ".join(arr[1:4])
-            p["Injury"] = player.find("td", {"style": " width: 20%;"})
-            p["Injury Summary"] = player.find("td", {"style":" min-width: 200px; width: 40%;"})
+            p["Injury"] = player.find("td", {"style": " width: 20%;"}).text.strip().replace("\n", "")
+            p["Injury Summary"] = player.find(
+                "td", {"style": " min-width: 200px; width: 40%;"}).text.strip().replace("\n", "")
             injd[teamname].append(p)
         injd[teamname] = sorted(injd[teamname], key=lambda x: datetime.strptime(
             x['Date of Injury'], '%a, %b %d'), reverse=True)
