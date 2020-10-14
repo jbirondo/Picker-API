@@ -114,10 +114,12 @@ def get_main_data():
         for x in range(0, 2):
             if x == 0 and ol2[x][0] != "-":
                 d["Over/Under"] = ol2[x]
+                d["Favored By"] = ol2[1].replace("-", "").split()[0]
                 d["Favorite"] = teams[1]
                 d["Underdog"] = teams[0]
             if x == 1 and ol2[x][0] != "-":
                 d["Over/Under"] = ol2[x]
+                d["Favored By"] = ol2[0].replace("-", "").split()[0]
                 d["Favorite"] = teams[0]
                 d["Underdog"] = teams[1]
 
@@ -173,7 +175,7 @@ def get_injury_data():
 def home():
     return '{"MatchUps": ' + str(get_main_data()) + "}"
 
-@app.route('/<away>-<home>')
+@app.route('/<away>-<home>', methods=["GET"])
 def matchup(away, home):
     return {
         "Away": get_injury_data()[away], 
