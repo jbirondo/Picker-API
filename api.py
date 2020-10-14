@@ -61,7 +61,7 @@ def get_main_data():
         }
 
 
-    table = all[0].find_all("tr")[:len(weatherd)]
+    table = all[0].find_all("tr")
     l = []
     for a in table:
         d = {}
@@ -89,10 +89,10 @@ def get_main_data():
         d["Away"] = teams[0]
         d["Home"] = teams[1]
         d["Date/Time"] = a.find("span", {"class": "cellTextHot"}).text
-        d["Temperature"] = weatherd[teams[1]]["Temperature"]
-        d["Wind Direction"] = weatherd[teams[1]]["Wind Direction"]
-        d["Wind Speed"] = weatherd[teams[1]]["Wind Speed"]
-        d["Weather Summary"] = weatherd[teams[1]]["Summary"]
+        d["Temperature"] = weatherd[teams[1]]["Temperature"] if weatherd[teams[1]]["Temperature"] else "No Temperature info yet"
+        d["Wind Direction"] = weatherd[teams[1]]["Wind Direction"] if weatherd[teams[1]]["Wind Direction"] else "No Wind Direction info yeet"
+        d["Wind Speed"] = weatherd[teams[1]]["Wind Speed"] if weatherd[teams[1]]["Wind Speed"] else "No Wind Speed info yet"
+        d["Weather Summary"] = weatherd[teams[1]]["Summary"] if weatherd[teams[1]]["Summary"] else "No Weather Summary info yet"
         l.append(d)
     sortedArray = sorted(
         l,
