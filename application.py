@@ -172,15 +172,17 @@ def get_injury_data():
 
 @application.route('/', methods=['GET'])
 def home():
-    return '{"MatchUps": ' + str(get_main_data()) + "}"
+    return json.dumps({
+        "MatchUps": get_main_data()
+    }, ensure_ascii=False).encode('utf8')
 
-@application.route('/<away>-<home>', methods=["GET"])
+@application.route('/<away>-<home>', methods=['GET'])
 def matchup(away, home):
-    return {
+    return json.dumps({
         "Away": get_injury_data()[away], 
         "Home": get_injury_data()[home], 
         "MatchUp": list(filter(lambda x: x['Home'] == home, get_main_data()))[0]
-        }
+    }, ensure_ascii=False).encode('utf8')
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
