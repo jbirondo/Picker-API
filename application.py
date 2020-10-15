@@ -1,7 +1,6 @@
 from datetime import datetime
 from bs4 import BeautifulSoup
 import requests
-import pandas
 import os
 import flask
 import flask_cors
@@ -9,10 +8,10 @@ from flask import request, jsonify, json
 from flask_cors import CORS
 import unicodedata
 
-app = flask.Flask(__name__)
-app.config["DEBUG"] = False
+application = flask.Flask(__name__)
+application.config["DEBUG"] = False
 
-CORS(app, supports_credentials=True)
+CORS(application, supports_credentials=True)
 
 def get_main_data():
     r = requests.get("https://www.vegasinsider.com/nfl/odds/las-vegas/", headers={
@@ -171,11 +170,11 @@ def get_injury_data():
 
 
 
-@app.route('/', methods=['GET'])
+@application.route('/', methods=['GET'])
 def home():
     return '{"MatchUps": ' + str(get_main_data()) + "}"
 
-@app.route('/<away>-<home>', methods=["GET"])
+@application.route('/<away>-<home>', methods=["GET"])
 def matchup(away, home):
     return {
         "Away": get_injury_data()[away], 
@@ -186,4 +185,4 @@ def matchup(away, home):
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     application.debug = True
-    app.run(host='0.0.0.0', port=port)
+    application.run(host='0.0.0.0', port=port)
